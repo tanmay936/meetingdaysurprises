@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Meeting Day</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Quicksand&family=Satisfy&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(-45deg, #c9cfff, #ffdde1, #bce0e6, #d6cadd);
+      background-size: 400% 400%;
+      animation: gradientShift 25s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: 'Quicksand', sans-serif;
+      position: relative;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .heart-container {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(208, 72, 158, 0.447);
+      transform: rotate(45deg);
+      animation: floatHeart 10s linear infinite;
+      filter: blur(4px);
+      border-radius: 50% 50% 0 0;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: inherit;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: -10px;
+    }
+
+    @keyframes floatHeart {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    .card {
+      background: rgba(20, 20, 30, 0.55);
+      backdrop-filter: blur(18px);
+      border-radius: 20px;
+      padding: 40px 30px;
+      max-width: 700px;
+      width: 90%;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .card h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: #ffffffee;
+      text-shadow: 1px 1px 6px #00000033;
+    }
+
+    .message-line {
+      font-size: 1.3rem;
+      font-family: 'Satisfy', cursive;
+      color: #ffffffee;
+      opacity: 0;
+      animation: fadeWords 1s ease forwards;
+      line-height: 1.8;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .highlight {
+      color: #ffd9fa;
+      font-weight: bold;
+      text-shadow: 0 0 10px #ffccf7, 1px 1px 2px #00000080;
+    }
+
+    @keyframes fadeWords {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal-btn {
+      margin-top: 30px;
+      padding: 12px 28px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      background: linear-gradient(135deg, #dfbaff, #94eaff);
+      color: #333;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+
+    .reveal-btn:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating blur hearts -->
+  <div class="heart-container">
+    <div class="heart" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="heart" style="left: 30%; animation-delay: 2s;"></div>
+    <div class="heart" style="left: 50%; animation-delay: 4s;"></div>
+    <div class="heart" style="left: 70%; animation-delay: 6s;"></div>
+    <div class="heart" style="left: 90%; animation-delay: 1s;"></div>
+  </div>
+
+  <!-- Main card -->
+  <div class="card">
+    <h1>Happy Meeting Day 💖</h1>
+
+    <div id="messageBox"></div>
+    <button class="reveal-btn" onclick="revealMessage()">Reveal Our Memory</button>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" src="https://cdn.pixabay.com/download/audio/2022/12/22/audio_a4574a63e5.mp3?filename=gentle-sparks-128379.mp3"></audio>
+  </div>
+
+  <script>
+    const lines = [
+      "Happy Four years of making sense of my non sense bakwas to you Bhai😭😭",
+      "Life with you is a whole spectrum of mood😂😂sometimes it feels ki how did i ",
+      "get so much lucky to have you in my life and other time it feels like mukka mar",
+      "ke daant tod doon aage ke do taki tumhari wisdom teeth balance ho jayea and ek ",
+      "mukka spines pe complimentary.🤣🤣Through all the silly and illogical fights",
+      "and disagreements, we still laugh with each other and that's what is my favourite thing about us😌.",
+      "Believe it or not destiny has brought us together warna itni pyari ",
+      "dost(sometimes pyari sometimes you are mukka deserving naari) aur itni pyaari dosti kaise naseeb hoti mujhe.😌",
+      "<span class='highlight'>In the end i just wanna say ki i am thankful i met you and thankyou for your presence in my life😌 ALWAYS GRATEFULL OF GOD FOR THAT</span>"
+    ];
+
+    function revealMessage() {
+      const box = document.getElementById('messageBox');
+      const music = document.getElementById('bgMusic');
+      music.play();
+      document.querySelector('.reveal-btn').style.display = 'none';
+
+      lines.forEach((line, index) => {
+        setTimeout(() => {
+          const p = document.createElement('p');
+          p.className = 'message-line';
+          p.style.animationDelay = `${index * 0.5}s`;
+          p.innerHTML = line;
+          box.appendChild(p);
+        }, index * 600);
+      });
+    }
+  </script>
+
+</body>
+</html>

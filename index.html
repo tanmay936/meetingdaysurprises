@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Meeting Day
+  </title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100vh;
+      background: linear-gradient(135deg, #6e44ff, #b892ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      position: relative;;
+    }
+
+    .twinkle-dots {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .dot {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      animation: twinkle 4s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+
+    .opening-container {
+      position: relative;
+      text-align: center;
+      color: #fff;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid #ffffff50;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      animation: fadeIn 2s ease-in;
+    }
+
+    .opening-container h1 {
+      font-size: 3.5rem;
+      margin: 0 0 20px 0;
+      background: linear-gradient(45deg, #eeeebe, #dbdba6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: popUp 1s ease-out;
+    }
+
+    .start-btn {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      background-color: #fff;
+      color: #6e44ff;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: bounce 2s infinite;
+    }
+
+    .start-btn:hover {
+      background-color: #f3e7ff;
+      transform: scale(1.1);
+    }
+
+    @keyframes popUp {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .trail {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.614), transparent);
+      pointer-events: none;
+      border-radius: 50%;
+      animation: fadeOut 1s forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="twinkle-dots" id="twinkleContainer"></div>
+  <div class="opening-container">
+    <h1>Happy Meeting Day 💫</h1>
+    <button class="start-btn" onclick="location.href='indextesterwronggif.html'">See your surprise</button>
+  </div>
+
+  <script>
+    // Generate twinkle dots
+    const twinkleContainer = document.getElementById("twinkleContainer");
+    for (let i = 0; i < 60; i++) {
+      const dot = document.createElement("div");
+      dot.className = "dot";
+      dot.style.top = `${Math.random() * 100}%`;
+      dot.style.left = `${Math.random() * 100}%`;
+      dot.style.animationDuration = `${Math.random() * 3 + 3}s`;
+      twinkleContainer.appendChild(dot);
+    }
+
+    // Rainbow sparkle trail
+    document.addEventListener("mousemove", createSparkle);
+    document.addEventListener("touchmove", (e) => createSparkle(e.touches[0]));
+
+    function createSparkle(e) {
+      const trail = document.createElement("div");
+      trail.className = "trail";
+      trail.style.left = `${e.clientX}px`;
+      trail.style.top = `${e.clientY}px`;
+      trail.style.background = `radial-gradient(circle, hsla(${Math.random() * 360}, 100%, 85%, 0.9), transparent)`;
+      document.body.appendChild(trail);
+      setTimeout(() => trail.remove(), 1000);
+    }
+  </script>
+</body>
+</html>
